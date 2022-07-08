@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Input } from '../../../../../../common/Input/Input';
 import { onChangeHandler } from '../../../../../../shared/utils';
 import { IconButton } from '../../../../../../common/IconButton/IconButton';
-import Button from 'bootstrap/js/src/button';
 
 export const QuantityChanger = ({ id }) => {
 	const [quantity, setQuantity] = useState('');

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Input } from '../../../../common/Input/Input';
-import { onChangeHandler } from '../../../../shared/utils';
+import { checkFormIsCorrect, onChangeHandler } from '../../../../shared/utils';
 import { Select } from '../../../../common/Select/Select';
 import { Textarea } from '../../../../common/Textarea/Textarea';
 
@@ -20,20 +20,15 @@ export const ProductForm = () => {
 	]);
 
 	useEffect(() => {
-		checkFormIsCorrect();
-	}, [name, description, producer, price, quantity, groupId]);
-
-	const checkFormIsCorrect = () => {
-		setFormIsCorrect(
-			name.length > 0 &&
-				producer.length > 0 &&
-				+price >= 0 &&
-				price.length > 0 &&
-				+quantity >= 0 &&
-				quantity.length > 0 &&
-				+groupId >= 0
+		checkFormIsCorrect(
+			setFormIsCorrect,
+			name,
+			producer,
+			price,
+			quantity,
+			groupId
 		);
-	};
+	}, [name, description, producer, price, quantity, groupId]);
 
 	return (
 		<div className='product-card mb-5'>

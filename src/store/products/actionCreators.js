@@ -8,12 +8,3 @@ export const productsFetched = (products) => {
 		},
 	};
 };
-
-export const productCreated = (product) => {
-	return {
-		type: actionTypes.PRODUCT_CREATED,
-		payload: {
-			product,
-		},
-	};
-};

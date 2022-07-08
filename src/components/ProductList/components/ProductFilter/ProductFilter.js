@@ -1,43 +1,39 @@
 import React, { useState } from 'react';
 import { Input } from '../../../../common/Input/Input';
 import {
-	onChangeHandler,
-	onChangeHandlerCheckBox,
+	onChangeHandlerCheckBoxDispatch,
+	onChangeHandlerDispatch,
 } from '../../../../shared/utils';
 import { Select } from '../../../../common/Select/Select';
 import { MinMaxGroup } from '../../../../common/MinMaxGroup/MinMaxGroup';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	filterReset,
+	setGroupId,
+	setMaxPrice,
+	setMaxPriceChecked,
+	setMaxQuantity,
+	setMaxQuantityChecked,
+	setMinPrice,
+	setMinPriceChecked,
+	setMinQuantity,
+	setMinQuantityChecked,
+	setSearchString,
+} from '../../../../store/filter/actionCreators';
+import { getFilter } from '../../../../store/selectors';
 
 export const ProductFilter = () => {
-	const [searchString, setSearchString] = useState('');
-	const [groupId, setGroupId] = useState(-1);
+	const dispatch = useDispatch();
+
 	const [groups, setGroups] = useState([
 		{ name: 'Group 1', id: 1 },
 		{ name: 'Group 2', id: 2 },
 	]);
 
-	const [minQuantityChecked, setMinQuantityChecked] = useState(false);
-	const [maxQuantityChecked, setMaxQuantityChecked] = useState(false);
-
-	const [minQuantity, setMinQuantity] = useState('');
-	const [maxQuantity, setMaxQuantity] = useState('');
-
-	const [minPriceChecked, setMinPriceChecked] = useState(false);
-	const [maxPriceChecked, setMaxPriceChecked] = useState(false);
-
-	const [minPrice, setMinPrice] = useState('');
-	const [maxPrice, setMaxPrice] = useState('');
+	const filter = useSelector(getFilter);
 
 	const clearForm = () => {
-		setSearchString('');
-		setGroupId(-1);
-		setMinQuantityChecked(false);
-		setMaxQuantityChecked(false);
-		setMinQuantity('');
-		setMaxQuantity('');
-		setMinPriceChecked(false);
-		setMaxPriceChecked(false);
-		setMinPrice('');
-		setMaxPrice('');
+		dispatch(filterReset());
 	};
 
 	return (
@@ -47,12 +43,12 @@ export const ProductFilter = () => {
 				id='searchString'
 				label='Текстовий пошук'
 				placeholder='Пошук'
-				value={searchString}
-				onChange={onChangeHandler(setSearchString)}
+				value={filter.searchString}
+				onChange={onChangeHandlerDispatch(dispatch, setSearchString)}
 			/>
 			<Select
-				onChange={onChangeHandler(setGroupId)}
-				value={groupId}
+				onChange={onChangeHandlerDispatch(dispatch, setGroupId)}
+				value={filter.groupId}
 				id='groupIdFilter'
 				nameSelector={(d) => d.name}
 				idSelector={(d) => d.id}
@@ -65,17 +61,23 @@ export const ProductFilter = () => {
 				groupLabel='Кількість товару'
 				idCheckMin='minQuantCheck'
 				idInputMin='minQuant'
-				checkedValueMin={minQuantityChecked}
-				inputValueMin={minQuantity}
-				onChangeCheckedMin={onChangeHandlerCheckBox(setMinQuantityChecked)}
-				onChangeInputMin={onChangeHandler(setMinQuantity)}
+				checkedValueMin={filter.minQuantityChecked}
+				inputValueMin={filter.minQuantity}
+				onChangeCheckedMin={onChangeHandlerCheckBoxDispatch(
+					dispatch,
+					setMinQuantityChecked
+				)}
+				onChangeInputMin={onChangeHandlerDispatch(dispatch, setMinQuantity)}
 				placeholderMin='Мін. кількість'
 				idCheckMax='maxQuantCheck'
 				idInputMax='maxQuant'
-				checkedValueMax={maxQuantityChecked}
-				inputValueMax={maxQuantity}
-				onChangeCheckedMax={onChangeHandlerCheckBox(setMaxQuantityChecked)}
-				onChangeInputMax={onChangeHandler(setMaxQuantity)}
+				checkedValueMax={filter.maxQuantityChecked}
+				inputValueMax={filter.maxQuantity}
+				onChangeCheckedMax={onChangeHandlerCheckBoxDispatch(
+					dispatch,
+					setMaxQuantityChecked
+				)}
+				onChangeInputMax={onChangeHandlerDispatch(dispatch, setMaxQuantity)}
 				placeholderMax='Макс. кількість'
 			/>
 			<MinMaxGroup
@@ -83,17 +85,23 @@ export const ProductFilter = () => {
 				groupLabel='Ціна товару'
 				idCheckMin='minPriceCheck'
 				idInputMin='minPrice'
-				checkedValueMin={minPriceChecked}
-				inputValueMin={minPrice}
-				onChangeCheckedMin={onChangeHandlerCheckBox(setMinPriceChecked)}
-				onChangeInputMin={onChangeHandler(setMinPrice)}
+				checkedValueMin={filter.minPriceChecked}
+				inputValueMin={filter.minPrice}
+				onChangeCheckedMin={onChangeHandlerCheckBoxDispatch(
+					dispatch,
+					setMinPriceChecked
+				)}
+				onChangeInputMin={onChangeHandlerDispatch(dispatch, setMinPrice)}
 				placeholderMin='Мін. ціна'
 				idCheckMax='maxPriceCheck'
 				idInputMax='maxPrice'
-				checkedValueMax={maxPriceChecked}
-				inputValueMax={maxPrice}
-				onChangeCheckedMax={onChangeHandlerCheckBox(setMaxPriceChecked)}
-				onChangeInputMax={onChangeHandler(setMaxPrice)}
+				checkedValueMax={filter.maxPriceChecked}
+				inputValueMax={filter.maxPrice}
+				onChangeCheckedMax={onChangeHandlerCheckBoxDispatch(
+					dispatch,
+					setMaxPriceChecked
+				)}
+				onChangeInputMax={onChangeHandlerDispatch(dispatch, setMaxPrice)}
 				placeholderMax='Макс. ціна'
 			/>
 			<hr />

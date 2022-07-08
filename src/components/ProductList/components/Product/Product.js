@@ -4,18 +4,9 @@ import { Input } from '../../../../common/Input/Input';
 import { Textarea } from '../../../../common/Textarea/Textarea';
 import { Select } from '../../../../common/Select/Select';
 import { QuantityChanger } from './components/QuantityChanger/QuantityChanger';
-import { onChangeHandler } from '../../../../shared/utils';
+import { checkFormIsCorrect, onChangeHandler } from '../../../../shared/utils';
 
-export const Product = () => {
-	const [product, setProduct] = useState({
-		id: 234,
-		name: 'Some name',
-		description: 'Some description',
-		price: 125.6,
-		quantity: 95,
-		groupId: 2,
-		producer: 'Producer',
-	});
+export const Product = ({ product }) => {
 	const [groups, setGroups] = useState([
 		{ name: 'Group 1', id: 1 },
 		{ name: 'Group 2', id: 2 },
@@ -28,6 +19,7 @@ export const Product = () => {
 	const [groupId, setGroupId] = useState(1);
 
 	const [changesMade, setChangesMade] = useState(false);
+	const [formIsCorrect, setFormIsCorrect] = useState(true);
 
 	useEffect(() => {
 		setName(product.name);
@@ -40,6 +32,14 @@ export const Product = () => {
 
 	useEffect(() => {
 		checkChangesMade();
+		checkFormIsCorrect(
+			setFormIsCorrect,
+			name,
+			producer,
+			price,
+			quantity,
+			groupId
+		);
 	}, [name, description, producer, price, groupId]);
 
 	const checkChangesMade = () => {
@@ -133,7 +133,10 @@ export const Product = () => {
 				<div className='row'>
 					<div className='mt-3 col-12 d-flex justify-content-between gap-4 flex-wrap align-items-start flex-wrap-reverse'>
 						<div className='d-flex flex-row gap-4'>
-							<button disabled={!changesMade} className='btn btn-success'>
+							<button
+								disabled={!changesMade || !formIsCorrect}
+								className='btn btn-success'
+							>
 								Оновити
 							</button>
 							<button className='btn btn-danger'>Видалити</button>
