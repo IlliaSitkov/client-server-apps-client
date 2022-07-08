@@ -6,34 +6,38 @@ export const onChangeHandlerCheckBox = (setter) => (event) => {
 	setter(event.target.checked);
 };
 
-export const onChangeHandlerDispatch = (dispatch, actionCreator) => (event) => {
-	dispatch(actionCreator(event.target.value));
-};
-
-export const onChangeHandlerCheckBoxDispatch =
-	(dispatch, actionCreator) => (event) => {
-		dispatch(actionCreator(event.target.checked));
-	};
+// export const onChangeHandlerDispatch = (dispatch, actionCreator) => (event) => {
+// 	dispatch(actionCreator(event.target.value));
+// };
+//
+// export const onChangeHandlerCheckBoxDispatch =
+// 	(dispatch, actionCreator) => (event) => {
+// 		dispatch(actionCreator(event.target.checked));
+// 	};
 
 export const filterToQueryString = (filter) => {
 	let queryString = '';
+	const filters = [];
 	if (filter.searchString.length > 0) {
-		queryString += '?searchString=' + filter.searchString;
+		filters.push('searchString=' + filter.searchString);
 	}
 	if (filter.groupId >= 0) {
-		queryString += '&groupId=' + filter.groupId;
+		filters.push('groupId=' + Number(filter.groupId));
 	}
 	if (filter.minQuantityChecked) {
-		queryString += '&minQuantity=' + filter.minQuantity;
+		filters.push('minQuantity=' + Number(filter.minQuantity));
 	}
 	if (filter.maxQuantityChecked) {
-		queryString += '&maxQuantity=' + filter.maxQuantity;
+		filters.push('maxQuantity=' + Number(filter.maxQuantity));
 	}
 	if (filter.minPriceChecked) {
-		queryString += '&minPrice=' + filter.minPrice;
+		filters.push('minPrice=' + Number(filter.minPrice));
 	}
 	if (filter.maxPriceChecked) {
-		queryString += '&maxPrice=' + filter.maxPrice;
+		filters.push('maxPrice=' + Number(filter.maxPrice));
+	}
+	if (filters.length > 0) {
+		queryString = '?' + filters.join('&');
 	}
 	return queryString;
 };

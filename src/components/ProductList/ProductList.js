@@ -5,7 +5,7 @@ import { ProductForm } from './components/ProductForm/ProductForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/selectors';
 import { fetchFilteredProducts } from '../../store/products/thunk';
-import { filterReset } from '../../store/filter/actionCreators';
+import { resetFilter } from '../../store/filter/actionCreators';
 
 export const ProductList = () => {
 	const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export const ProductList = () => {
 	useEffect(() => {
 		dispatch(fetchFilteredProducts);
 		return () => {
-			dispatch(filterReset());
+			dispatch(resetFilter());
 		};
 	}, []);
 
