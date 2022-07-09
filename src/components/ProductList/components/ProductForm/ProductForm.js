@@ -5,6 +5,8 @@ import { Select } from '../../../../common/Select/Select';
 import { Textarea } from '../../../../common/Textarea/Textarea';
 
 import './ProductForm.css';
+import { useDispatch } from 'react-redux';
+import { createProduct } from '../../../../store/products/thunk';
 
 export const ProductForm = () => {
 	const [formIsCorrect, setFormIsCorrect] = useState(false);
@@ -19,6 +21,8 @@ export const ProductForm = () => {
 		{ name: 'Group 2', id: 2 },
 	]);
 
+	const dispatch = useDispatch();
+
 	useEffect(() => {
 		checkFormIsCorrect(
 			setFormIsCorrect,
@@ -29,6 +33,29 @@ export const ProductForm = () => {
 			groupId
 		);
 	}, [name, description, producer, price, quantity, groupId]);
+
+	const clearForm = () => {
+		setName('');
+		setDescription('');
+		setProducer('');
+		setPrice('');
+		setQuantity('');
+		setGroupId(-1);
+	};
+
+	const saveProduct = () => {
+		dispatch(
+			createProduct({
+				name,
+				description,
+				producer,
+				price,
+				quantity,
+				groupId,
+			})
+		);
+		clearForm();
+	};
 
 	return (
 		<div className='product-card mb-5'>
@@ -109,7 +136,11 @@ export const ProductForm = () => {
 				</div>
 				<div className='row'>
 					<div className='col-12'>
-						<button disabled={!formIsCorrect} className='btn btn-success'>
+						<button
+							onClick={saveProduct}
+							disabled={!formIsCorrect}
+							className='btn btn-success'
+						>
 							Створити
 						</button>
 					</div>

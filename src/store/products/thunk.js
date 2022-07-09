@@ -9,19 +9,36 @@ export const fetchFilteredProducts = async (dispatch, getState) => {
 	try {
 		const query = url + filterToQueryString(getState().filter);
 		const res = await fetch(query);
+		const obj = await res.json();
 		if (res.status < 300) {
-			const obj = await res.json();
 			dispatch(productsFetched(obj.result));
+		} else {
+			alert(obj.message);
 		}
 	} catch (e) {
 		console.log(e);
 	}
 };
 
-export const createProduct = (product) => (dispatch) => {
-	// call to server to save product
-	// then reload all products
-	dispatch(fetchFilteredProducts);
+export const createProduct = (product) => async (dispatch) => {
+	console.log('creating a product');
+	try {
+		const res = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(product),
+		});
+		const obj = await res.json();
+		if (res.status < 300) {
+			dispatch(fetchFilteredProducts);
+		} else {
+			alert(obj.message);
+		}
+	} catch (e) {
+		console.log(e);
+	}
 };
 
 export const deleteProduct = (productId) => (dispatch) => {
@@ -31,7 +48,7 @@ export const deleteProduct = (productId) => (dispatch) => {
 };
 
 export const updateProduct = (productId, updates) => (dispatch) => {
-	// call to server to delete product
+	// call to server to update product
 	// then reload all products
 	dispatch(fetchFilteredProducts);
 };
