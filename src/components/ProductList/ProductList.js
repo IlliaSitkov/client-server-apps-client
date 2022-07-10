@@ -28,13 +28,17 @@ export const ProductList = () => {
 	});
 
 	return (
-		<div className='container mt-5'>
+		<div className='container mt-5 mb-5'>
 			<h2>Додавання товару</h2>
 			<ProductForm />
 			<div className='row d-flex flex-column-reverse flex-lg-row'>
 				<div className='col-10 col-lg-8 ms-auto me-auto'>
 					<h2>Товари на складі</h2>
-					<div className='d-flex flex-column gap-3'>{views}</div>
+					{views.length > 0 ? (
+						<div className='d-flex flex-column gap-3'>{views}</div>
+					) : (
+						<div> Товарів не знайдено</div>
+					)}
 				</div>
 				<div className='col-lg-4 col-10 ms-auto me-auto mb-3'>
 					<h2>Пошук товарів</h2>

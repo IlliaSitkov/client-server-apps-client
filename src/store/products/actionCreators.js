@@ -8,3 +8,9 @@ export const productsFetched = (products) => {
 		},
 	};
 };
+
+export const productsRemoved = () => {
+	return {
+		type: actionTypes.PRODUCTS_REMOVED,
+	};
+};

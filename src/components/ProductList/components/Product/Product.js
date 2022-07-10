@@ -5,6 +5,8 @@ import { Textarea } from '../../../../common/Textarea/Textarea';
 import { Select } from '../../../../common/Select/Select';
 import { QuantityChanger } from './components/QuantityChanger/QuantityChanger';
 import { checkFormIsCorrect, onChangeHandler } from '../../../../shared/utils';
+import * as productThunk from '../../../../store/products/thunk';
+import { useDispatch } from 'react-redux';
 
 export const Product = ({ product }) => {
 	const [groups, setGroups] = useState([
@@ -20,6 +22,8 @@ export const Product = ({ product }) => {
 
 	const [changesMade, setChangesMade] = useState(false);
 	const [formIsCorrect, setFormIsCorrect] = useState(true);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		setName(product.name);
@@ -40,7 +44,7 @@ export const Product = ({ product }) => {
 			quantity,
 			groupId
 		);
-	}, [name, description, producer, price, groupId]);
+	}, [name, description, producer, price, groupId, product]);
 
 	const checkChangesMade = () => {
 		setChangesMade(
@@ -51,6 +55,22 @@ export const Product = ({ product }) => {
 				product.price === +price &&
 				product.groupId === +groupId
 			)
+		);
+	};
+
+	const deleteProduct = () => {
+		dispatch(productThunk.deleteProduct(product.id));
+	};
+
+	const updateProduct = () => {
+		dispatch(
+			productThunk.updateProduct(product.id, {
+				name,
+				description,
+				producer,
+				price,
+				groupId,
+			})
 		);
 	};
 
@@ -134,12 +154,15 @@ export const Product = ({ product }) => {
 					<div className='mt-3 col-12 d-flex justify-content-between gap-4 flex-wrap align-items-start flex-wrap-reverse'>
 						<div className='d-flex flex-row gap-4'>
 							<button
+								onClick={updateProduct}
 								disabled={!changesMade || !formIsCorrect}
 								className='btn btn-success'
 							>
 								Оновити
 							</button>
-							<button className='btn btn-danger'>Видалити</button>
+							<button onClick={deleteProduct} className='btn btn-danger'>
+								Видалити
+							</button>
 						</div>
 						<QuantityChanger id={product.id} />
 					</div>
