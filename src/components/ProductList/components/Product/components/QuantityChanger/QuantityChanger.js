@@ -11,7 +11,7 @@ export const QuantityChanger = ({ id }) => {
 
 	const dispatch = useDispatch();
 
-	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+	const [token] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
 
 	const addProduct = () => {
 		dispatch(productThunk.addProduct(id, quantity, token));

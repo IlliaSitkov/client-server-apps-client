@@ -6,15 +6,6 @@ export const onChangeHandlerCheckBox = (setter) => (event) => {
 	setter(event.target.checked);
 };
 
-// export const onChangeHandlerDispatch = (dispatch, actionCreator) => (event) => {
-// 	dispatch(actionCreator(event.target.value));
-// };
-//
-// export const onChangeHandlerCheckBoxDispatch =
-// 	(dispatch, actionCreator) => (event) => {
-// 		dispatch(actionCreator(event.target.checked));
-// 	};
-
 export const filterToQueryString = (filter) => {
 	let queryString = '';
 	const filters = [];
@@ -64,8 +55,8 @@ export const checkFormIsCorrect = (
 export const checkLoginFormIsCorrect = (setter, login, password) => {
 	setter(
 		login.length > 0 &&
-		login.length < 50 &&
-		password.length > 0 &&
-		password.length < 50
+			login.length < 50 &&
+			password.length > 0 &&
+			password.length < 50
 	);
 };

@@ -35,7 +35,7 @@ export const ProductFilter = () => {
 		{ name: 'Group 2', id: 2 },
 	]);
 
-	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+	const [token] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
 
 	const dispatch = useDispatch();
 
