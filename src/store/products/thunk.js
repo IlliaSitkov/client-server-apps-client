@@ -3,11 +3,12 @@ import { filterToQueryString } from '../../shared/utils';
 
 import * as productService from '../../services/productService';
 
-export const fetchFilteredProducts = async (dispatch, getState) => {
+export const fetchFilteredProducts = (token) => async (dispatch, getState) => {
 	try {
 		// dispatch(productsRemoved());
 		const res = await productService.fetchFilteredProducts(
-			filterToQueryString(getState().filter)
+			filterToQueryString(getState().filter),
+			token
 		);
 		const obj = await res.json();
 		if (res.status < 300) {
@@ -20,11 +21,11 @@ export const fetchFilteredProducts = async (dispatch, getState) => {
 	}
 };
 
-export const createProduct = (product) => async (dispatch) => {
+export const createProduct = (product, token) => async (dispatch) => {
 	try {
-		const res = await productService.createProduct(product);
+		const res = await productService.createProduct(product, token);
 		if (res.status < 300) {
-			dispatch(fetchFilteredProducts);
+			dispatch(fetchFilteredProducts(token));
 		} else {
 			const obj = await res.json();
 			alert(obj.message);
@@ -34,11 +35,11 @@ export const createProduct = (product) => async (dispatch) => {
 	}
 };
 
-export const deleteProduct = (productId) => async (dispatch) => {
+export const deleteProduct = (productId, token) => async (dispatch) => {
 	try {
-		const res = await productService.deleteProduct(productId);
+		const res = await productService.deleteProduct(productId, token);
 		if (res.status < 300) {
-			dispatch(fetchFilteredProducts);
+			dispatch(fetchFilteredProducts(token));
 		} else {
 			const obj = await res.json();
 			alert(obj.message);
@@ -48,11 +49,26 @@ export const deleteProduct = (productId) => async (dispatch) => {
 	}
 };
 
-export const updateProduct = (productId, updates) => async (dispatch) => {
+export const updateProduct =
+	(productId, updates, token) => async (dispatch) => {
+		try {
+			const res = await productService.updateProduct(productId, updates, token);
+			if (res.status < 300) {
+				dispatch(fetchFilteredProducts(token));
+			} else {
+				const obj = await res.json();
+				alert(obj.message);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+export const addProduct = (productId, quantity, token) => async (dispatch) => {
 	try {
-		const res = await productService.updateProduct(productId, updates);
+		const res = await productService.addProduct(productId, quantity, token);
 		if (res.status < 300) {
-			dispatch(fetchFilteredProducts);
+			dispatch(fetchFilteredProducts(token));
 		} else {
 			const obj = await res.json();
 			alert(obj.message);
@@ -62,25 +78,11 @@ export const updateProduct = (productId, updates) => async (dispatch) => {
 	}
 };
 
-export const addProduct = (productId, quantity) => async (dispatch) => {
+export const takeProduct = (productId, quantity, token) => async (dispatch) => {
 	try {
-		const res = await productService.addProduct(productId, quantity);
+		const res = await productService.takeProduct(productId, quantity, token);
 		if (res.status < 300) {
-			dispatch(fetchFilteredProducts);
-		} else {
-			const obj = await res.json();
-			alert(obj.message);
-		}
-	} catch (e) {
-		console.log(e);
-	}
-};
-
-export const takeProduct = (productId, quantity) => async (dispatch) => {
-	try {
-		const res = await productService.takeProduct(productId, quantity);
-		if (res.status < 300) {
-			dispatch(fetchFilteredProducts);
+			dispatch(fetchFilteredProducts(token));
 		} else {
 			const obj = await res.json();
 			alert(obj.message);

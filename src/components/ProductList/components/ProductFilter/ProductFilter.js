@@ -12,6 +12,7 @@ import {
 	onChangeHandler,
 	onChangeHandlerCheckBox,
 } from '../../../../shared/utils';
+import { LOCAL_STORAGE_TOKEN } from '../../../../shared/constants';
 
 export const ProductFilter = () => {
 	const [searchString, setSearchString] = useState('');
@@ -34,6 +35,8 @@ export const ProductFilter = () => {
 		{ name: 'Group 2', id: 2 },
 	]);
 
+	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+
 	const dispatch = useDispatch();
 
 	const clearForm = () => {
@@ -52,7 +55,7 @@ export const ProductFilter = () => {
 	const resetForm = () => {
 		clearForm();
 		dispatch(resetFilter());
-		dispatch(fetchFilteredProducts);
+		dispatch(fetchFilteredProducts(token));
 	};
 
 	const applyFilter = () => {
@@ -70,7 +73,7 @@ export const ProductFilter = () => {
 				maxPrice,
 			})
 		);
-		dispatch(fetchFilteredProducts);
+		dispatch(fetchFilteredProducts(token));
 	};
 
 	return (

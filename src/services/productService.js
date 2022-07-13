@@ -1,9 +1,6 @@
 const url = 'https://localhost:8766/api/product/';
 
-const token =
-	'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaXNzIjoidWEuY29tLmNsaWVudC1zZXJ2ZXItYXBwIiwiaWF0IjoxNjU3Njk2NDUyLCJleHAiOjE2NTc2OTY3NTJ9.-Kh2Wq2gL5dS1gilnkZr7YMdNbaiCOTbQiEyhuOCBr0';
-
-export const fetchFilteredProducts = (filter) => {
+export const fetchFilteredProducts = (filter, token) => {
 	return fetch(url + filter, {
 		method: 'GET',
 		headers: {
@@ -12,7 +9,7 @@ export const fetchFilteredProducts = (filter) => {
 	});
 };
 
-export const createProduct = (product) => {
+export const createProduct = (product, token) => {
 	return fetch(url, {
 		method: 'POST',
 		headers: {
@@ -23,7 +20,7 @@ export const createProduct = (product) => {
 	});
 };
 
-export const deleteProduct = (productId) => {
+export const deleteProduct = (productId, token) => {
 	return fetch(url + productId, {
 		method: 'DELETE',
 		headers: {
@@ -32,7 +29,7 @@ export const deleteProduct = (productId) => {
 	});
 };
 
-export const updateProduct = (productId, updates) => {
+export const updateProduct = (productId, updates, token) => {
 	return fetch(url + productId, {
 		method: 'PUT',
 		headers: {
@@ -43,7 +40,7 @@ export const updateProduct = (productId, updates) => {
 	});
 };
 
-export const addProduct = (productId, quantity) => {
+export const addProduct = (productId, quantity, token) => {
 	return fetch(url + productId, {
 		method: 'PATCH',
 		headers: {
@@ -54,7 +51,7 @@ export const addProduct = (productId, quantity) => {
 	});
 };
 
-export const takeProduct = (productId, quantity) => {
+export const takeProduct = (productId, quantity, token) => {
 	return fetch(url + productId, {
 		method: 'PATCH',
 		headers: {

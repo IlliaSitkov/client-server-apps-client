@@ -7,6 +7,7 @@ import { QuantityChanger } from './components/QuantityChanger/QuantityChanger';
 import { checkFormIsCorrect, onChangeHandler } from '../../../../shared/utils';
 import * as productThunk from '../../../../store/products/thunk';
 import { useDispatch } from 'react-redux';
+import { LOCAL_STORAGE_TOKEN } from '../../../../shared/constants';
 
 export const Product = ({ product }) => {
 	const [groups, setGroups] = useState([
@@ -24,6 +25,8 @@ export const Product = ({ product }) => {
 	const [formIsCorrect, setFormIsCorrect] = useState(true);
 
 	const dispatch = useDispatch();
+
+	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
 
 	useEffect(() => {
 		setName(product.name);
@@ -59,18 +62,22 @@ export const Product = ({ product }) => {
 	};
 
 	const deleteProduct = () => {
-		dispatch(productThunk.deleteProduct(product.id));
+		dispatch(productThunk.deleteProduct(product.id, token));
 	};
 
 	const updateProduct = () => {
 		dispatch(
-			productThunk.updateProduct(product.id, {
-				name,
-				description,
-				producer,
-				price,
-				groupId,
-			})
+			productThunk.updateProduct(
+				product.id,
+				{
+					name,
+					description,
+					producer,
+					price,
+					groupId,
+				},
+				token
+			)
 		);
 	};
 

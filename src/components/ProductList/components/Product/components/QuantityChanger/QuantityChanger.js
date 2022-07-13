@@ -4,19 +4,22 @@ import { onChangeHandler } from '../../../../../../shared/utils';
 import { IconButton } from '../../../../../../common/IconButton/IconButton';
 import { useDispatch } from 'react-redux';
 import * as productThunk from '../../../../../../store/products/thunk';
+import { LOCAL_STORAGE_TOKEN } from '../../../../../../shared/constants';
 
 export const QuantityChanger = ({ id }) => {
 	const [quantity, setQuantity] = useState('');
 
 	const dispatch = useDispatch();
 
+	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+
 	const addProduct = () => {
-		dispatch(productThunk.addProduct(id, quantity));
+		dispatch(productThunk.addProduct(id, quantity, token));
 		setQuantity('');
 	};
 
 	const takeProduct = () => {
-		dispatch(productThunk.takeProduct(id, quantity));
+		dispatch(productThunk.takeProduct(id, quantity, token));
 		setQuantity('');
 	};
 

@@ -7,6 +7,7 @@ import { Textarea } from '../../../../common/Textarea/Textarea';
 import './ProductForm.css';
 import { useDispatch } from 'react-redux';
 import { createProduct } from '../../../../store/products/thunk';
+import { LOCAL_STORAGE_TOKEN } from '../../../../shared/constants';
 
 export const ProductForm = () => {
 	const [formIsCorrect, setFormIsCorrect] = useState(false);
@@ -22,6 +23,8 @@ export const ProductForm = () => {
 	]);
 
 	const dispatch = useDispatch();
+
+	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
 
 	useEffect(() => {
 		checkFormIsCorrect(
@@ -45,14 +48,17 @@ export const ProductForm = () => {
 
 	const saveProduct = () => {
 		dispatch(
-			createProduct({
-				name,
-				description,
-				producer,
-				price,
-				quantity,
-				groupId,
-			})
+			createProduct(
+				{
+					name,
+					description,
+					producer,
+					price,
+					quantity,
+					groupId,
+				},
+				token
+			)
 		);
 		clearForm();
 	};

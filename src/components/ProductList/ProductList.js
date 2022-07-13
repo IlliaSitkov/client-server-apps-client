@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Product } from './components/Product/Product';
 import { ProductFilter } from './components/ProductFilter/ProductFilter';
 import { ProductForm } from './components/ProductForm/ProductForm';
@@ -6,12 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../store/selectors';
 import { fetchFilteredProducts } from '../../store/products/thunk';
 import { resetFilter } from '../../store/filter/actionCreators';
+import { LOCAL_STORAGE_TOKEN } from '../../shared/constants';
 
 export const ProductList = () => {
 	const dispatch = useDispatch();
 
+	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+
 	useEffect(() => {
-		dispatch(fetchFilteredProducts);
+		dispatch(fetchFilteredProducts(token));
 		return () => {
 			dispatch(resetFilter());
 		};
