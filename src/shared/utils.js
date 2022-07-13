@@ -60,3 +60,12 @@ export const checkFormIsCorrect = (
 			+groupId >= 0
 	);
 };
+
+export const checkLoginFormIsCorrect = (setter, login, password) => {
+	setter(
+		login.length > 0 &&
+		login.length < 50 &&
+		password.length > 0 &&
+		password.length < 50
+	);
+};

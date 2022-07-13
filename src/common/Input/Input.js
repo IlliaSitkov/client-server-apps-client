@@ -27,6 +27,7 @@ export const Input = ({
 				required={required}
 				placeholder={placeholder}
 				min={0}
+				autoComplete="off"
 			/>
 		</div>
 	);

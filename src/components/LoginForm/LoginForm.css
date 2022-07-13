@@ -1,0 +1,14 @@
+.data-col{
+    margin-top: 30px;
+    border: 2px solid #9C9C9C;
+    border-radius: 2px;
+}
+
+.data-row{
+    margin-top: 10px;
+}
+
+.btn-row{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
