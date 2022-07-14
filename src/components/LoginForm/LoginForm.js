@@ -16,19 +16,22 @@ export const LoginForm = ({ loggedInSetter }) => {
 	}, [login, passwrd]);
 
 	const performLogIn = async () => {
-		let res = await loginService.logIn({
-			username: login,
-			password: MD5(passwrd).toString().toUpperCase(),
-		});
-		if (res.status === 200) {
-			let token = res.headers.get('Jwtoken');
-			console.log(token);
-			localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
-			console.log('Logged in: redirect');
-			loggedInSetter(true);
-		} else if (res.status === 403) {
-			alert('Wrong credentials!');
-		} else {
+		try {
+			let res = await loginService.logIn({
+				username: login,
+				password: MD5(passwrd).toString().toUpperCase(),
+			});
+			if (res.status === 200) {
+				let token = res.headers.get('Jwtoken');
+				console.log(token);
+				localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
+				console.log('Logged in: redirect');
+				loggedInSetter(true);
+			} else if (res.status === 403) {
+				alert('Wrong credentials!');
+			}
+		} catch (e) {
+			console.log(e);
 			alert('Server not responding');
 		}
 	};

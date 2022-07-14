@@ -42,7 +42,7 @@ export const Group = ({ group }) => {
 		<div className='product-card'>
 			<details>
 				<summary>{name}</summary>
-				<div className='row'>
+				<div className='row first-row'>
 					<div className='col-md-12'>
 						<Input
 							id='name'

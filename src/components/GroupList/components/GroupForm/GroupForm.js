@@ -38,7 +38,7 @@ export const GroupForm = () => {
 		<div className='product-card mb-5'>
 			<details>
 				<summary>Створити групу товарів</summary>
-				<div className='row'>
+				<div className='row first-row'>
 					<div className='col-md-12'>
 						<Input
 							id='name'
