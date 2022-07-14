@@ -90,7 +90,7 @@ export const Statistics = () => {
 							<strong>Загальна вартість усіх товарів на складі: </strong>
 							{calculateProductsCost(products)} грн
 						</p>
-						{productInfoTable(products)}}
+						{productInfoTable(products)}
 					</>
 				) : (
 					'Товарів не додано'
