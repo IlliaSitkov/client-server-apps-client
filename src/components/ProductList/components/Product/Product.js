@@ -6,14 +6,11 @@ import { Select } from '../../../../common/Select/Select';
 import { QuantityChanger } from './components/QuantityChanger/QuantityChanger';
 import { checkFormIsCorrect, onChangeHandler } from '../../../../shared/utils';
 import * as productThunk from '../../../../store/products/thunk';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LOCAL_STORAGE_TOKEN } from '../../../../shared/constants';
+import { getGroups } from '../../../../store/selectors';
 
 export const Product = ({ product }) => {
-	const [groups, setGroups] = useState([
-		{ name: 'Group 1', id: 1 },
-		{ name: 'Group 2', id: 2 },
-	]);
 	const [name, setName] = useState('');
 	const [description, setDescription] = useState('');
 	const [producer, setProducer] = useState('');
@@ -25,6 +22,8 @@ export const Product = ({ product }) => {
 	const [formIsCorrect, setFormIsCorrect] = useState(true);
 
 	const dispatch = useDispatch();
+
+	const groups = useSelector(getGroups);
 
 	const [token] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
 

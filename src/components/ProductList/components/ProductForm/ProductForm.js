@@ -5,9 +5,10 @@ import { Select } from '../../../../common/Select/Select';
 import { Textarea } from '../../../../common/Textarea/Textarea';
 
 import './ProductForm.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../../../store/products/thunk';
 import { LOCAL_STORAGE_TOKEN } from '../../../../shared/constants';
+import { getGroups } from '../../../../store/selectors';
 
 export const ProductForm = () => {
 	const [formIsCorrect, setFormIsCorrect] = useState(false);
@@ -17,10 +18,8 @@ export const ProductForm = () => {
 	const [price, setPrice] = useState('');
 	const [quantity, setQuantity] = useState('');
 	const [groupId, setGroupId] = useState(-1);
-	const [groups, setGroups] = useState([
-		{ name: 'Group 1', id: 1 },
-		{ name: 'Group 2', id: 2 },
-	]);
+
+	const groups = useSelector(getGroups);
 
 	const dispatch = useDispatch();
 

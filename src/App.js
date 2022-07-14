@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import { useState } from 'react';
 import { LOCAL_STORAGE_TOKEN } from './shared/constants';
+import { Statistics } from './components/Statistics/Statistics';
 
 function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(
@@ -38,6 +39,7 @@ function App() {
 							<>
 								<Route path='/products' exact element={<ProductList />} />
 								<Route path='/groups' exact element={<GroupList />} />
+								<Route path='/statistics' exact element={<Statistics />} />
 								<Route path='*' element={<Navigate to='/products' />} />
 							</>
 						)}

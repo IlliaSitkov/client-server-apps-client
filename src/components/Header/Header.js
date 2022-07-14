@@ -20,6 +20,12 @@ export const Header = ({ logOut }) => {
 				>
 					Групи товарів
 				</button>
+				<button
+					onClick={() => navigate('/statistics', { replace: true })}
+					className='btn btn-link'
+				>
+					Статистика
+				</button>
 			</div>
 			<button
 				onClick={() => {

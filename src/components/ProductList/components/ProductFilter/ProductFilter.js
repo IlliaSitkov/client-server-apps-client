@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input } from '../../../../common/Input/Input';
 import { Select } from '../../../../common/Select/Select';
 import { MinMaxGroup } from '../../../../common/MinMaxGroup/MinMaxGroup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	resetFilter,
 	setFilter,
@@ -13,6 +13,7 @@ import {
 	onChangeHandlerCheckBox,
 } from '../../../../shared/utils';
 import { LOCAL_STORAGE_TOKEN } from '../../../../shared/constants';
+import { getGroups } from '../../../../store/selectors';
 
 export const ProductFilter = () => {
 	const [searchString, setSearchString] = useState('');
@@ -30,10 +31,7 @@ export const ProductFilter = () => {
 	const [minPrice, setMinPrice] = useState('');
 	const [maxPrice, setMaxPrice] = useState('');
 
-	const [groups, setGroups] = useState([
-		{ name: 'Group 1', id: 1 },
-		{ name: 'Group 2', id: 2 },
-	]);
+	const groups = useSelector(getGroups);
 
 	const [token] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
 
