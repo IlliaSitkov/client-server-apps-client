@@ -2,22 +2,33 @@ import React from 'react';
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Header = () => {
+export const Header = ({ logOut }) => {
 	const navigate = useNavigate();
 
 	return (
-		<header className='sticky-top d-flex flex-row gap-3 ps-5 pe-5'>
+		<header className='sticky-top d-flex ps-5 pe-5 flex-wrap justify-content-between'>
+			<div className='d-flex gap-3'>
+				<button
+					onClick={() => navigate('/products', { replace: true })}
+					className='btn btn-link'
+				>
+					Товари
+				</button>
+				<button
+					onClick={() => navigate('/groups', { replace: true })}
+					className='btn btn-link'
+				>
+					Групи товарів
+				</button>
+			</div>
 			<button
-				onClick={() => navigate('/products', { replace: true })}
+				onClick={() => {
+					logOut();
+					navigate('/login', { replace: true });
+				}}
 				className='btn btn-link'
 			>
-				Товари
-			</button>
-			<button
-				onClick={() => navigate('/groups', { replace: true })}
-				className='btn btn-link'
-			>
-				Групи товарів
+				Вийти
 			</button>
 		</header>
 	);

@@ -11,7 +11,7 @@ import { LOCAL_STORAGE_TOKEN } from '../../shared/constants';
 export const ProductList = () => {
 	const dispatch = useDispatch();
 
-	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+	const [token] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
 
 	useEffect(() => {
 		dispatch(fetchFilteredProducts(token));

@@ -24,7 +24,7 @@ export const ProductForm = () => {
 
 	const dispatch = useDispatch();
 
-	const token = localStorage.getItem(LOCAL_STORAGE_TOKEN); // temporary solution
+	const [token] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN));
 
 	useEffect(() => {
 		checkFormIsCorrect(
