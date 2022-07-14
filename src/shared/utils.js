@@ -69,3 +69,14 @@ export const checkLoginFormIsCorrect = (setter, login, password) => {
 		password.length < 50
 	);
 };
+
+export const checkGroupFormIsCorrect = (setter, name, description) => {
+	setter(
+		name.length > 0 &&
+		description.length > 0
+	);
+};
+
+export const processSessionTimeout = () => {
+	alert("Your session expired. Please, re-log in");
+}

@@ -11,8 +11,7 @@ import {LOCAL_STORAGE_TOKEN} from "./shared/constants";
 
 
 function App() {
-	const[isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN) === null);
-
+	const[isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem(LOCAL_STORAGE_TOKEN) != null);
 	return (
 		<Provider store={store}>
 			<BrowserRouter>
